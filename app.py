@@ -85,7 +85,7 @@ if st.button("Get Recommendations"):
         else:
             st.error("❗ No match found. Try using broader or simpler words like 'heart', 'thyroid', 'BRCA1'.")
 
-=======
+
 import streamlit as st
 import pandas as pd
 import time
