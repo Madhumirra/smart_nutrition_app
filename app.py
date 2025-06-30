@@ -1,102 +1,87 @@
 import streamlit as st
 import pandas as pd
+import time
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 
-# Page setup
+# Set up the page
 st.set_page_config(page_title="Smart Nutrition Recommender", layout="centered")
 
-# 💅 CSS Styling
+# Load data
+try:
+    df = pd.read_csv("smart_nutrition_data.csv")
+except FileNotFoundError:
+    st.error("❗ CSV file not found. Please make sure 'smart_nutrition_data.csv' is in your project folder.")
+    st.stop()
+
+# Custom style
 st.markdown("""
     <style>
-    .stApp {
-        background-color: white;
-        color: #6a1b9a;
-    }
-    .main-title {
-        font-size: 34px;
-        font-weight: bold;
-        color: #6a1b9a;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    .subtext {
-        font-size: 17px;
-        color: #6a1b9a;
-        text-align: center;
-        margin-bottom: 25px;
-    }
-    .section {
-        font-size: 20px;
-        color: #6a1b9a;
-        font-weight: 600;
-        margin-top: 20px;
-    }
-    .content {
-        font-size: 17px;
-        color: #6a1b9a;
-        margin-left: 10px;
-    }
-    .custom-input input {
-        width: 300px !important;
-        height: 36px !important;
-        font-size: 15px !important;
-        border: 1px solid #6a1b9a !important;
-        border-radius: 5px !important;
-        padding-left: 10px !important;
-        color: #6a1b9a !important;
-    }
-    .stButton > button {
-        background-color: white;
-        color: #6a1b9a;
-        border: 2px solid #6a1b9a;
-        border-radius: 8px;
-        padding: 6px 16px;
-        font-size: 15px;
-        font-weight: bold;
-        transition: 0.3s ease-in-out;
-    }
-    .stButton > button:hover {
-        background-color: #f3e5f5;
-        color: #4a148c;
-        border-color: #4a148c;
-        cursor: pointer;
-    }
+        body, .stApp {
+            background-color: white;
+            color: #6A0DAD;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .stTextInput input {
+            color: #6A0DAD !important;  /* Violet text */
+            background-color: white !important;
+            border: 2px solid #6A0DAD;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 18px;
+        }
+        .stButton > button {
+            background-color: #6A0DAD;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+        }
+        .stButton > button:hover {
+            background-color: #8A2BE2;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-# 🟣 Title and Subtitle
-st.markdown('<div class="main-title">Smart Nutrition Recommender</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtext">Enter any disease, gene, or symptom below</div>', unsafe_allow_html=True)
+# Title
+st.markdown("<h1 style='text-align: center;'>Smart Nutrition Recommender</h1>", unsafe_allow_html=True)
 
-# Load data
-df = pd.read_csv("smart_nutrition_data.csv")
+# User input
+user_input = st.text_input("Enter the symptom or condition:").strip().lower()
+st.write(f"You typed: {user_input}")
 
-# Smaller input box
-with st.container():
-    st.markdown('<div class="custom-input">', unsafe_allow_html=True)
-    user_input = st.text_input("", placeholder="Enter a condition, gene or symptom")
-    st.markdown('</div>', unsafe_allow_html=True)
+# Button click
+if st.button("Get Recommendations"):
+    with st.spinner("🔍 Searching..."):
+        time.sleep(1)
 
-# 🔍 Logic
-if st.button("Get Recommendation"):
-    user_input_lower = user_input.lower().strip()
-    found = False
+        # Combine condition, gene, and recommended food into a list for matching
+        match_list = df['condition'].astype(str).tolist() + \
+                     df['gene'].astype(str).tolist() + \
+                     df['recommended food'].astype(str).tolist()
 
-    for _, row in df.iterrows():
-        keywords = [k.strip().lower() for k in row["Keywords"].split(',')]
-        if any(k in user_input_lower or user_input_lower in k for k in keywords):
-            st.markdown(f'<div class="section">Condition</div><div class="content">{row["Condition Name"]} ({row["Type"]})</div>', unsafe_allow_html=True)
+        match_list = [item.lower() for item in match_list if str(item).strip() != ""]
 
-            if pd.notna(row['Gene']) and row['Gene'].strip().lower() != "n/a":
-                st.markdown(f'<div class="section">Gene Involved</div><div class="content">{row["Gene"]}</div>', unsafe_allow_html=True)
+        # Find best match
+        best_match, score = process.extractOne(user_input, match_list, scorer=fuzz.partial_ratio)
 
-            st.markdown(f'<div class="section">Foods to Avoid</div><div class="content">{row["Avoid Food"]}</div>', unsafe_allow_html=True)
+        if score >= 70:
+            result_row = df[
+                (df['condition'].str.lower() == best_match) |
+                (df['gene'].str.lower() == best_match) |
+                (df['recommended food'].str.lower() == best_match)
+            ].iloc[0]
 
-            st.markdown(f'<div class="section">Foods to Recommend</div><div class="content">{row["Recommend Food"]}</div>', unsafe_allow_html=True)
+            st.success("✅ Match Found!")
+            st.dataframe(pd.DataFrame({
+                "Condition": [result_row["condition"]],
+                "Gene": [result_row["gene"]],
+                "Foods to Avoid": [result_row["avoid food"]],
+                "Foods to Recommend": [result_row["recommended food"]],
+                "Why Recommended": [result_row["why_recommended"]]
+            }))
+        else:
+            st.error("❗ No match found. Try using broader or simpler words like 'heart', 'thyroid', 'BRCA1'.")
 
-            st.markdown(f'<div class="section">Reason</div><div class="content">{row["Why_Recommended"]}</div>', unsafe_allow_html=True)
 
-            found = True
-            break
-
-    if not found:
-        st.markdown('<div class="section">No exact match found in the database.</div>', unsafe_allow_html=True)
