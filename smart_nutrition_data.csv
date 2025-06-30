@@ -1,21 +1,149 @@
-Condition Name,Type,Keywords,Gene,Avoid Food,Recommend Food,Why_Recommended
-PKU,Disease,pku,PAH,"Milk, Meat, Cheese","Fruits, Veggies, Low-protein",PAH mutation prevents protein breakdown
-Lactose Intolerance,Disease,"lactose, milk allergy",LCT,"Milk, Cheese","Lactose-free milk, Soy",LCT mutation causes milk sugar intolerance
-Bloating,Symptom,"bloating, gas, indigestion",,"Dairy, Spicy food","Ginger, Yogurt",Balances gut flora and improves digestion
-Oily Skin,Symptom,"oily, acne, skin",,"Sugar, Dairy, Fried foods","Vitamin A-rich foods, Water",Reduces sebum production and inflammation
-BRCA1 Mutation,Gene,"brca1, breast cancer",BRCA1,"Alcohol, Red meat","Berries, Cruciferous vegetables",Berries have antioxidants and anti-cancer effects
-Hair Fall,Symptom,"hair, hair fall, thinning",,"Sugar, Processed food","Biotin-rich foods, Eggs",Biotin and protein support healthy hair and keratin
-Celiac Disease,Disease,"celiac, gluten intolerance",HLA-DQ2,"Wheat, Rye, Barley","Rice, Quinoa, Gluten-free grains",Gluten-free diet avoids immune response in celiac
-G6PD Deficiency,Gene,"g6pd, favism",G6PD,"Fava beans, Sulfa drugs","Green vegetables, Vitamin C",Avoiding triggers prevents red blood cell damage
-PCOS,Disease,"pcos, hormone imbalance",,"Refined carbs, Sugar","Whole grains, Leafy greens",Reduces insulin resistance and balances hormones
-Diabetes,Disease,"diabetes, sugar",,"Sugary drinks, White rice","Whole grains, Nuts",Stabilizes blood sugar and provides fiber
-Heart Disease,Disease,"heart,cardiac,blood pressure,cholesterol",APOE,"red meat,salty snacks","oats,fish,fruits,leafy greens",Supports heart health by lowering LDL levels
-Thyroid,Disease,"thyroid,hypothyroid,hyperthyroid,goitre",TSH,"cabbage,soy,processed food","iodized salt,selenium-rich foods",Supports hormone regulation and energy levels
-Hair Loss,Symptom,"hair fall,hair loss,dandruff,scalp",N/A,"oily food,sugar","eggs,spinach,almonds",Promotes keratin and scalp health
-Skin Allergy,Symptom,"allergy,skin rash,eczema,itchy",N/A,"dairy,processed meat","turmeric,aloe vera,omega 3 foods",Reduces inflammation and improves skin repair
-Anxiety,Symptom,"anxiety,nervous,stress,depression",N/A,"caffeine,sugar","chamomile,dark chocolate,banana",Calms nerves and supports brain chemicals
-Fatty Liver,Disease,"fatty liver,hepatic steatosis,liver fat",N/A,"alcohol,fried food,sugar","leafy greens,garlic,green tea",Helps reduce liver fat and improve function
-Constipation,Symptom,"constipation,hard stool,less poop",N/A,"processed food,cheese,red meat","fiber-rich food,water,prunes",Improves digestion and bowel movements
-Obesity,Disease,"obesity,overweight,weight gain",N/A,"sweets,fried snacks,soft drinks","high-fiber veggies,lean protein",Supports fat loss and metabolism
-PCOS,Disease,"pcos,polycystic ovary,hormonal imbalance",N/A,"sugar,dairy,processed food","omega-3,leafy greens,cinnamon",Regulates insulin and hormone levels
-Acne,Symptom,"acne,pimples,oily skin,breakout",N/A,"sugar,fried food,dairy","berries,green tea,zinc-rich foods",Reduces inflammation and clears skin
+condition,gene,avoid food,recommended food,why_recommended,
+Hypertension,ACE,"Salt, Processed foods","Leafy greens, Bananas",Potassium-rich foods help balance blood pressure.,
+Anemia,HBB,"Tea, Coffee, Calcium-rich foods with iron","Red meat, Spinach, Legumes",Iron and Vitamin C improve hemoglobin production.,
+Hypothyroidism,TSHR,"Soy, Gluten, Cruciferous vegetables","Iodized salt, Selenium-rich foods",Supports thyroid hormone synthesis.,
+Hyperthyroidism,TSHR,Iodine-rich foods,"Cruciferous vegetables, Dairy",Helps regulate thyroid overactivity.,
+PCOS,FSHR,"Sugar, Refined carbs","Whole grains, Omega-3 foods",Balances insulin and hormone levels.,
+GERD,N/A,"Caffeine, Spicy food","Oatmeal, Ginger, Bananas",Reduces acid reflux symptoms.,
+Ulcer,N/A,"Spicy food, NSAIDs","Probiotics, Cabbage juice",Promotes gut healing and balances flora.,
+Osteoporosis,VDR,"Sodium, Soft drinks","Calcium-rich foods, Vitamin D",Improves bone density and strength.,
+Arthritis,TNF,"Red meat, Sugar","Fatty fish, Berries",Reduces inflammation in joints.,
+Diarrhea,N/A,"Dairy, Greasy food","Bananas, Rice, Applesauce, Toast",BRAT diet helps digestion.,
+Constipation,N/A,Processed food,"Fiber, Water, Whole grains",Improves bowel movement.,
+Migraine,N/A,"Chocolate, Cheese",Magnesium-rich foods,Reduces frequency of migraines.,
+Anxiety,SLC6A4,"Caffeine, Alcohol","Berries, Whole grains, Green tea",Supports brain health and calming.,
+Depression,SLC6A4,"Alcohol, Sugar","Omega-3, Leafy greens",Boosts serotonin and mood.,
+Obesity,FTO,"Sugar, Fried foods","Whole foods, Protein-rich diets",Regulates metabolism.,
+Type 2 Diabetes,TCF7L2,"Sugar, Refined carbs","Fiber-rich foods, Cinnamon",Improves insulin sensitivity.,
+Fatty Liver,PNPLA3,"Sugar, Fried food","Whole grains, Avocados",Reduces liver fat.,
+Psoriasis,IL23R,"Red meat, Dairy","Omega-3, Turmeric",Anti-inflammatory effects on skin.,
+Hair Loss,N/A,"Sugar, Oily food","Protein-rich foods, Iron",Nourishes hair follicles.,
+Acne,N/A,"Dairy, Fried food","Zinc-rich foods, Watermelon",Reduces inflammation and oil.,
+Dry Skin,N/A,"Alcohol, Salt","Omega-3, Water-rich fruits",Improves skin hydration.,
+Insomnia,N/A,"Caffeine, Sugar","Chamomile tea, Banana",Helps induce sleep.,
+Eczema,FLG,"Dairy, Gluten","Vitamin E, Fish oil",Soothes skin inflammation.,
+Asthma,ORMDL3,"Cold drinks, Preservatives","Antioxidants, Magnesium",Relaxes airways.,
+Thalassemia,HBB,Iron-rich food in excess,"Folate, Zinc",Supports red blood cells.,
+Fever,N/A,Cold items,"Fluids, Broth, Fruits",Hydration and recovery.,
+Sinusitis,N/A,"Dairy, Fried foods","Spicy food, Warm fluids",Opens sinuses and reduces mucus.,
+Celiac Disease,HLA-DQ2,"Wheat, Barley, Rye","Gluten-free grains, Rice, Quinoa",Avoids autoimmune flare-ups.,
+BRCA1 Mutation,BRCA1,"Alcohol, Smoking","Cruciferous vegetables, Fiber-rich foods",Anti-cancer support.,
+Lactose Intolerance,LCT,"Milk, Cheese, Butter","Lactose-free milk, Soy milk",Avoids digestive issues.,
+G6PD Deficiency,G6PD,"Fava beans, Sulfa drugs","Green vegetables, Vitamin C",Avoids oxidative stress.,
+PKU,PAH,"Meat, Milk, Cheese, Eggs","Fruits, Vegetables, Low-protein formula",Reduces phenylalanine load.,
+Migraine,N/A,"Caffeine, Aged cheese",Magnesium-rich foods,Reduces migraine frequency and severity,"headache, dizziness, pressure in head, migraine"
+Conjunctivitis,N/A,"Dust, Smoke","Cool compress, Hydration",Soothes eye irritation and inflammation,"red eyes, itchy eyes, watery eyes, eye pain"
+Otitis Media,N/A,Cold water exposure,"Warm compress, Fluids",Reduces ear pain and infection,"ear pain, hearing loss, ringing in ears"
+Sinusitis,N/A,"Dairy, Fried foods","Spicy food, Warm fluids",Opens sinuses and reduces mucus,"nasal congestion, sneezing, sinus pressure"
+Tonsillitis,N/A,Cold drinks,"Warm soup, Ginger tea",Reduces throat inflammation,"sore throat, difficulty swallowing, dry mouth"
+Cervical Spondylosis,N/A,Poor posture,"Calcium, Anti-inflammatory foods",Supports spine health,"neck pain, stiff neck, shoulder pain"
+Frozen Shoulder,N/A,Cold exposure,"Warm therapy, Protein foods",Reduces stiffness and supports mobility,"shoulder pain, limited movement"
+Carpal Tunnel Syndrome,N/A,Repetitive hand use,"B6-rich foods, Anti-inflammatory diet",Supports nerve function,"hand pain, finger stiffness, numb fingers"
+Coronary Artery Disease,N/A,"Fried foods, Red meat","Oats, Leafy greens",Improves heart function,"chest pain, tightness, shortness of breath"
+Irritable Bowel Syndrome,N/A,"Dairy, Spicy food","Fiber-rich food, Peppermint",Regulates digestion,"abdominal pain, bloating, cramps, indigestion"
+Sciatica,N/A,Prolonged sitting,Magnesium-rich foods,Relieves nerve pain,"lower back pain, leg numbness"
+Polycystic Ovary Syndrome,FSHR,"Refined carbs, Sugar","Whole grains, Omega-3s",Balances hormones,"pelvic pain, irregular periods, acne"
+Varicose Veins,N/A,"Salt, Alcohol",Flavonoid-rich foods,Improves circulation,"leg pain, heaviness, swelling"
+Plantar Fasciitis,N/A,Improper footwear,"Protein, Anti-inflammatory foods",Reduces heel pain,"foot pain, heel pain, swelling"
+Eczema,FLG,"Dairy, Processed foods","Vitamin E, Omega-3s",Improves skin barrier,"rash, itchy skin, dry skin"
+Alopecia,N/A,"Stress, Sugar",Biotin-rich foods,Promotes hair growth,"hair loss, itchy scalp, oily scalp"
+Chronic Fatigue,N/A,"Caffeine, Sugar","Iron-rich foods, Water",Boosts energy naturally,"fatigue, weakness, dizziness, insomnia"
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+Tooth Decay,AMELX,"Sugary snacks, Soda","Dairy, Calcium-rich foods",Strengthens enamel and reduces cavity risk,
+Gingivitis,N/A,"Sticky sweets, Smoking","Leafy greens, Vitamin C",Promotes gum health and reduces inflammation,
+Mouth Ulcers,N/A,"Spicy food, Citrus","Yogurt, B-complex foods",Helps heal and soothe mouth tissues,
+Tonsil Stones,N/A,"Dairy, Processed meat","Water, Fresh fruits",Reduces mucus and bad breath,
+Dry Mouth,N/A,"Caffeine, Alcohol","Water, Pineapple",Increases saliva and prevents bacterial growth,
+Halitosis (Bad Breath),N/A,"Garlic, Onion","Mint, Parsley",Neutralizes odor-causing bacteria,
+Eye Strain,N/A,Screen overuse,"Carrots, Omega-3s",Supports vision and reduces strain,
+Cataract,CRYAA,"High sugar, Smoking","Vitamin C & E, Spinach",Protects lens protein from oxidation,
+Glaucoma,MYOC,"Salt, Caffeine","Leafy greens, Nitrate-rich food",Regulates eye pressure,
+Tinnitus,N/A,"Caffeine, Alcohol",Magnesium-rich foods,Supports nerve function,
+Nose Bleed,N/A,Hot/spicy foods,"Vitamin K, Watermelon",Improves clotting and hydration,
+Dry Nose,N/A,"Dry air, Alcohol","Water, Omega-3 foods",Keeps nasal tissue moist,
+Ear Infection,N/A,Cold exposure,"Garlic, Warm liquids",Has natural antimicrobial effects,
+Jaw Pain,N/A,"Hard food, Chewing gum","Soft diet, Turmeric",Reduces strain and inflammation,
+Neck Inflammation,N/A,"Cold exposure, Poor posture",Anti-inflammatory foods,Reduces pain and supports mobility,
+Swollen Lymph Nodes,N/A,High fat diet,"Citrus, Antioxidants",Boosts immune response,
+Shoulder Pain,N/A,"Overuse, Cold drinks","Warm fluids, Protein",Improves circulation and muscle healing,
+Tennis Elbow,N/A,Repetitive arm movement,"Omega-3s, Collagen-rich foods",Supports tendon repair,
+Elbow Bursitis,N/A,Pressure on elbow,"Pineapple, Anti-inflammatory diet",Reduces swelling,
+Carpal Tunnel,N/A,Repetitive hand use,"Vitamin B6, Turmeric",Nerve support and pain reduction,
+Finger Stiffness,N/A,Cold exposure,"Warm soup, Leafy greens",Improves blood flow,
+Nail Inflammation,N/A,"Nail biting, Lack of hygiene","Zinc, Biotin-rich foods",Supports nail health,
+Itchy Scalp,N/A,"Dandruff, Hair oil chemicals","Neem, Aloe Vera",Antibacterial and soothing,
+Oily Skin,N/A,"Fried food, Sugar","Green tea, Cucumber",Controls sebum production,
+Dark Circles,N/A,"Sleep deprivation, Salt","Iron-rich foods, Water",Reduces puffiness and pigmentation,
+Dry Lips,N/A,"Dehydration, Licking lips","Water, Vitamin E",Moisturizes and repairs lip tissue,
+Back Pain,N/A,Sedentary lifestyle,"Magnesium, Omega-3s",Reduces tension and pain,
+Knee Joint Pain,N/A,"Red meat, Sugar","Fatty fish, Collagen-rich foods",Anti-inflammatory effect on joints,
+Heel Pain,N/A,Wrong shoes,"Protein, Calcium",Supports tissue repair,
+Blurred Vision,N/A,"Sugar, Lack of sleep","Vitamin A, Carrots",Protects retina and improves clarity,
+Vertigo,N/A,"Caffeine, Alcohol","Hydration, Vitamin D",Improves balance and ear function,
+Muscle Weakness,DMD,"Sodium, Alcohol","Protein, Magnesium",Supports muscle strength,
+Cramps,N/A,"Dehydration, Salt",Potassium-rich foods,Prevents muscle spasms,
+Sweating Excessive,N/A,"Caffeine, Spicy food","Water, Magnesium foods",Regulates sweat glands,
+Cold Feet,N/A,Poor circulation,"Ginger, Garlic",Improves blood flow,
+Menstrual Cramps,N/A,"Sugar, Salt","Omega-3s, Leafy greens",Relieves pain and balances hormones,
+Irregular Periods,N/A,"Junk food, Dairy","Cinnamon, Whole grains",Regulates hormones,
+Vaginal Dryness,N/A,"Alcohol, Sugar","Omega-3s, Water-rich fruits",Restores hydration and pH,
+Frequent Urination,N/A,"Coffee, Carbonated drinks","Cranberry juice, Fiber-rich foods",Supports urinary tract health,
+Burning Urination,N/A,"Spicy foods, Caffeine","Water, Probiotics",Soothes urinary tract,
+Poor Immunity,N/A,"Processed food, Soda","Vitamin C, Zinc, Garlic",Strengthens immune response,
+Weak Bones,VDR,"Soda, Caffeine","Calcium, Vitamin D",Improves bone strength,
+Memory Loss,APOE,"Trans fats, Sugar","Omega-3s, Berries",Enhances brain function,
+Slow Wound Healing,N/A,"Sugar, Processed food","Protein, Vitamin C",Accelerates tissue repair,
+Low Libido,N/A,"Alcohol, Fatty food","Zinc, Dark chocolate",Supports hormonal health,
+Night Blindness,RHO,Low Vitamin A diet,"Carrots, Sweet potatoes",Enhances night vision,
+Pale Skin,N/A,Iron-poor diet,"Red meat, Spinach",Increases hemoglobin,
+Yellow Eyes (Jaundice),N/A,"Alcohol, Oily foods","Papaya, Lemon water",Supports liver detox,
+Eye Twitching,N/A,"Stress, Caffeine",Magnesium-rich food,Relieves nerve tension,
