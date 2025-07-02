@@ -7,7 +7,6 @@ include based on diseases, symptoms, or genetic mutations entered by the user.
 
 Access the application here:  
 [https://madhumirra-smart-nutrition-app.streamlit.app](https://madhumirra-smart-nutrition-app-app-9odrgf.streamlit.app/)
-
 ## Project Overview
 
 The Smart Nutrition Recommender:
