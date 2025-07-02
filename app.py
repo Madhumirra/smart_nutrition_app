@@ -1,88 +1,84 @@
-
 import streamlit as st
 import pandas as pd
 import time
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
+import difflib
 
-# Set up the page
+# Page config
 st.set_page_config(page_title="Smart Nutrition Recommender", layout="centered")
 
-# Load data
-try:
-    df = pd.read_csv("smart_nutrition_data.csv")
-except FileNotFoundError:
-    st.error("❗ CSV file not found. Please make sure 'smart_nutrition_data.csv' is in your project folder.")
-    st.stop()
-
-# Custom style
+# Light theme & input styling
 st.markdown("""
     <style>
-        body, .stApp {
-            background-color: white;
-            color: #6A0DAD;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .stTextInput input {
-            color: #6A0DAD !important;  /* Violet text */
-            background-color: white !important;
-            border: 2px solid #6A0DAD;
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 18px;
-        }
-        .stButton > button {
-            background-color: #6A0DAD;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            font-weight: bold;
-        }
-        .stButton > button:hover {
-            background-color: #8A2BE2;
-        }
+    .stApp { background-color: white; color: #6A0DAD; font-family: 'Segoe UI', sans-serif; }
+    .stTextInput input { color: #6A0DAD !important; background-color: white; border: 2px solid #6A0DAD; border-radius: 10px; padding: 12px; }
+    .stButton > button { background-color: #6A0DAD; color: white; border-radius: 8px; padding: 10px 24px; font-weight: bold; }
+    .stButton > button:hover { background-color: #8A2BE2; }
+    .stDataFrame table { background-color: white !important; color: #6A0DAD !important; }
+    thead tr th { background-color: #f3e5f5 !important; color: #6A0DAD; }
     </style>
 """, unsafe_allow_html=True)
 
 # Title
 st.markdown("<h1 style='text-align: center;'>Smart Nutrition Recommender</h1>", unsafe_allow_html=True)
 
-# User input
-user_input = st.text_input("Enter the symptom or condition:").strip().lower()
-st.write(f"You typed: {user_input}")
+# Load data
+try:
+    df = pd.read_csv("smart_nutrition_data.csv")
+except FileNotFoundError:
+    st.error("CSV not found. Upload `smart_nutrition_data.csv` alongside `app.py`.")
+    st.stop()
 
-# Button click
-if st.button("Get Recommendations"):
-    with st.spinner("🔍 Searching..."):
-        time.sleep(1)
+# Symptom-to-disease map
+symptom_map = {
+    "left hand pain": "heart disease",
+    "chest pain": "heart disease",
+    "breathlessness": "heart disease",
+    "hair fall": "hair loss",
+    "rash": "skin allergy",
+    "itchy skin": "skin allergy",
+    "fatigue": "iron deficiency",
+    "baldness": "hair loss",
+    "acne": "hormonal imbalance",
+}
 
-        # Combine condition, gene, and recommended food into a list for matching
-        match_list = df['condition'].astype(str).tolist() + \
-                     df['gene'].astype(str).tolist() + \
-                     df['recommended food'].astype(str).tolist()
+# Input
+user_input = st.text_input("Enter symptom or condition:", key="main_input").strip().lower()
+if user_input in symptom_map:
+    user_input = symptom_map[user_input]
 
-        match_list = [item.lower() for item in match_list if str(item).strip() != ""]
+# Button
+if st.button("Get Recommendation"):
+    with st.spinner("Searching..."):
+        time.sleep(0.8)
 
-        # Find best match
-        best_match, score = process.extractOne(user_input, match_list, scorer=fuzz.partial_ratio)
+        # Build list of possible matches
+        candidates = (
+            df['condition'].astype(str).str.lower().tolist()
+            + df['gene'].astype(str).str.lower().tolist()
+        )
+        # Remove empty strings
+        candidates = [c for c in candidates if c]
 
-        if score >= 70:
-            result_row = df[
-                (df['condition'].str.lower() == best_match) |
-                (df['gene'].str.lower() == best_match) |
-                (df['recommended food'].str.lower() == best_match)
+        # Use difflib to find best close match
+        matches = difflib.get_close_matches(user_input, candidates, n=1, cutoff=0.6)
+        if matches:
+            best = matches[0]
+            # locate the row
+            row = df[
+                (df['condition'].str.lower() == best) |
+                (df['gene'].str.lower() == best)
             ].iloc[0]
-
-            st.success("✅ Match Found!")
+            st.success("Match found:")
             st.dataframe(pd.DataFrame({
-                "Condition": [result_row["condition"]],
-                "Gene": [result_row["gene"]],
-                "Foods to Avoid": [result_row["avoid food"]],
-                "Foods to Recommend": [result_row["recommended food"]],
-                "Why Recommended": [result_row["why_recommended"]]
+                "Condition": [row["condition"]],
+                "Gene": [row["gene"]],
+                "Foods to Avoid": [row["avoid food"]],
+                "Foods to Recommend": [row["recommended food"]],
+                "Why Recommended": [row["why_recommended"]],
             }))
         else:
-            st.error("❗ No match found. Try using broader or simpler words like 'heart', 'thyroid', 'BRCA1'.")
+            st.warning("No match found. Try simpler terms like 'heart disease' or 'BRCA1'.")
 
+# Footer
+st.markdown("<hr><p style='text-align:center;font-size:13px;'>Built by Madhumirra R</p>", unsafe_allow_html=True)
 
